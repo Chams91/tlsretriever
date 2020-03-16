@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -140,7 +141,7 @@ func main() {
 	vaultName := "maks-vault-dev"
 	// Replace this with the name of the certificate inside the vault
 	certificateName := "sunnycertificate"
-	
+
 	ctx := context.Background()
 
 	// Create an object
@@ -163,7 +164,7 @@ func main() {
 	}
 
 	// Write the certificates to disk
-	f, _ := os.Create("chamscertificate.pem")
+	f, _ := os.Create(filepath.Join("/data/certs", "chamscertificate.pem"))
 	f.Write(cert)
 	f.Close()
 
