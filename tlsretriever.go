@@ -9,7 +9,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
 	"strings"
 	"time"
 
@@ -138,7 +137,7 @@ func (akv *AzureKeyVaultCertificate) GetCertificate(certificateName string) (cer
 // Entry point
 func main() {
 	// Replace this with the name of the Azure Key Vault
-	vaultName := "maks-vault-dev"
+	vaultName := "maks-vault-gps-dev"
 	// Replace this with the name of the certificate inside the vault
 	certificateName := "sunnycertificate"
 
@@ -164,7 +163,7 @@ func main() {
 	}
 
 	// Write the certificates to disk
-	f, _ := os.Create(filepath.Join("/data/certs", "chamscertificate.pem"))
+	f, _ := os.Create("chamscertificate.pem")
 	f.Write(cert)
 	f.Close()
 
