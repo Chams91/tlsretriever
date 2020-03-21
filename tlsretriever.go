@@ -11,6 +11,7 @@ import (
 	"os"
 	"strings"
 	"time"
+	"path/filepath"
 
 	"github.com/Azure/azure-sdk-for-go/services/keyvault/2016-10-01/keyvault"
 	"github.com/Azure/azure-sdk-for-go/services/keyvault/auth"
@@ -163,11 +164,25 @@ func main() {
 	}
 
 	// Write the certificates to disk
-	f, _ := os.Create("chamscertificate.pem")
+	filePath, _ := filepath.Abs("./certs/" + "chamscertificate.pem")
+	f, _ := os.Create(filePath)
 	f.Write(cert)
-	f.Close()
+	path, err := filepath.Abs(filepath.Dir(filePath))
+	if  err != nil {
+		fmt.Println("Error", err)
+		return
+	}
 
-	f, _ = os.Create("key.pem")
+	fmt.Println("files path :" , path)
+	f.Close()
+	
+	filePath2, _ := filepath.Abs("./certs/" + "key.pem")
+        f, _ = os.Create(filePath2)
 	f.Write(key)
 	f.Close()
+
+	for true {
+	fmt.Println("certificate and key retrieved")
+	time.Sleep(time.Second)
+	}
 }

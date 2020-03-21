@@ -18,15 +18,15 @@ COPY . .
 RUN CGO_ENABLED=0 go test -v
 
 # Build the Go app
-RUN go build -o /app/tlsretriever
+RUN go build -o /tlsretriever
 
 # Start fresh from a smaller image
 FROM alpine:3.9 
 
 RUN apk add ca-certificates
 
-COPY --from=build /app/tlsretriever /app/tlsretriever
+COPY --from=build /tlsretriever /tlsretriever
 
 
 # Run the binary program produced by `go install`
-ENTRYPOINT /app/tlsretriever
+ENTRYPOINT /tlsretriever
