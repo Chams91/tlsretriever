@@ -137,10 +137,13 @@ func (akv *AzureKeyVaultCertificate) GetCertificate(certificateName string) (cer
 
 // Entry point
 func main() {
+	
+	for true {
 	// Replace this with the name of the Azure Key Vault
-	vaultName := "maks-vault-gps-dev"
+	vaultName := os.Getenv("VAULT_NAME")        //"maks-vault-gps-dev"
+	
 	// Replace this with the name of the certificate inside the vault
-	certificateName := "sunnycertificate"
+	certificateName := os.Getenv("PFX_CERTIFICATE")     //"sunnycertificate"
 
 	ctx := context.Background()
 
@@ -181,8 +184,7 @@ func main() {
 	f.Write(key)
 	f.Close()
 
-	for true {
 	fmt.Println("certificate and key retrieved")
-	time.Sleep(time.Second)
+	time.Sleep(5 * time.Minute)
 	}
 }
